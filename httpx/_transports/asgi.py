@@ -88,7 +88,7 @@ class ASGITransport(AsyncBaseTransport):
         self.root_path = root_path
         self.client = client
 
-    async def handle_async_request(
+    async def _handle_async_request(
         self,
         request: Request,
     ) -> Response:

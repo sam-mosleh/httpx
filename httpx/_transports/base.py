@@ -19,6 +19,11 @@ class BaseTransport:
     ) -> None:
         self.close()
 
+    def _handle_request(self, request: Request) -> Response:
+        raise NotImplementedError(
+            "The '_handle_request' method must be implemented."
+        )  # pragma: no cover
+
     def handle_request(self, request: Request) -> Response:
         """
         Send a single HTTP request and return a response.
@@ -50,9 +55,7 @@ class BaseTransport:
 
         Returns a `Response` instance.
         """
-        raise NotImplementedError(
-            "The 'handle_request' method must be implemented."
-        )  # pragma: no cover
+        return self._handle_request(request)
 
     def close(self) -> None:
         pass
@@ -70,13 +73,19 @@ class AsyncBaseTransport:
     ) -> None:
         await self.aclose()
 
-    async def handle_async_request(
+    async def _handle_async_request(
         self,
         request: Request,
     ) -> Response:
         raise NotImplementedError(
-            "The 'handle_async_request' method must be implemented."
+            "The '_handle_async_request' method must be implemented."
         )  # pragma: no cover
+
+    async def handle_async_request(
+        self,
+        request: Request,
+    ) -> Response:
+        return await self._handle_async_request(request)
 
     async def aclose(self) -> None:
         pass

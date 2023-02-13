@@ -83,7 +83,7 @@ class WSGITransport(BaseTransport):
         self.remote_addr = remote_addr
         self.wsgi_errors = wsgi_errors
 
-    def handle_request(self, request: Request) -> Response:
+    def _handle_request(self, request: Request) -> Response:
         request.read()
         wsgi_input = io.BytesIO(request.content)
 
